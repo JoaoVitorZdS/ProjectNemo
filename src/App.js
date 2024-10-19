@@ -5,6 +5,7 @@ import Menu from './components/Menu/Menu';
 import Home from './components/Home/Home';
 import DashboardCliente from './components/DashboardCliente/DashboardCliente';
 import DashboardCriador from './components/DashboardCriador/DashboardCriador';
+import Reader from './components/Reader/Reader';
 import Login from './components/Login/Login';
 import Register from './components/Register/Register';
 import { ToastContainer, toast } from 'react-toastify';
@@ -18,21 +19,20 @@ function App() {
   const [produtos, setProdutos] = useState([]);
   const [carrinho, setCarrinho] = useState([]);
   const [eBooks, setEBooks] = useState([]);
+  const [selectedEbook, setSelectedEbook] = useState(null);
 
   useEffect(() => {
     initializeLocalStorage();
     loadProdutos();
     loadCarrinho();
-     loadEBooks();
+    loadEBooks();
 
-    // Verifica o tema salvo no localStorage
     const savedTheme = localStorage.getItem('dark-mode');
     if (savedTheme === 'enabled') {
       setDarkMode(true);
       document.body.classList.add('dark-mode');
     }
 
-    // Verifica o estado de login no localStorage
     const loggedIn = localStorage.getItem('isLoggedIn') === 'true';
     const savedUserType = localStorage.getItem('userType');
     if (loggedIn && savedUserType) {
@@ -52,26 +52,32 @@ function App() {
         { id: 1, nome: 'Curso de React', tipo: 'curso', adquiridos: ['cliente@example.com'] },
         { id: 2, nome: 'Curso de JavaScript', tipo: 'curso', adquiridos: [] }
       ],
-      carrinho: [], // Inicializa o carrinho vazio
+      carrinho: [],
       eBooks: []
     };
 
-    // Se o localStorage não tiver o item 'appData', inicializa com os dados padrão
     if (!localStorage.getItem('appData')) {
       localStorage.setItem('appData', JSON.stringify(initialData));
     }
   };
 
-    const loadEBooks = () => {
+  const loadEBooks = () => {
     const appData = JSON.parse(localStorage.getItem('appData'));
     if (appData && appData.eBooks) {
       setEBooks(appData.eBooks);
     }
   };
 
-   const salvarEbook = (novoEbook) => {
-    const appData = JSON.parse(localStorage.getItem('appData'));
+  const salvarEbook = (novoEbook) => {
+    const appData = JSON.parse(localStorage.getItem('appData')) || {};
+
+    if (!Array.isArray(appData.eBooks)) {
+      appData.eBooks = [];
+    }
+
+    novoEbook.id = appData.eBooks.length + 1;
     appData.eBooks.push(novoEbook);
+
     localStorage.setItem('appData', JSON.stringify(appData));
     setEBooks([...appData.eBooks]);
     toast.success('eBook salvo com sucesso!');
@@ -89,18 +95,17 @@ function App() {
     if (appData && Array.isArray(appData.carrinho)) {
       setCarrinho(appData.carrinho);
     } else {
-      setCarrinho([]); // Garante que o carrinho seja um array vazio
+      setCarrinho([]);
     }
   };
 
   const addToCarrinho = (produtoId) => {
     const appData = JSON.parse(localStorage.getItem('appData'));
     if (!Array.isArray(appData.carrinho)) {
-      appData.carrinho = []; // Garante que o carrinho seja um array
+      appData.carrinho = [];
     }
 
     const produtoJaNoCarrinho = appData.carrinho.includes(produtoId);
-    
     if (!produtoJaNoCarrinho) {
       appData.carrinho.push(produtoId);
       localStorage.setItem('appData', JSON.stringify(appData));
@@ -110,34 +115,34 @@ function App() {
       toast.info('O produto já está no carrinho.');
     }
   };
-  const adicionarEbook = (novoEbook) => {
-  const appData = JSON.parse(localStorage.getItem('appData'));
-  novoEbook.id = appData.eBooks.length + 1; // Gera um ID para o novo eBook
-  appData.eBooks.push(novoEbook);
-  localStorage.setItem('appData', JSON.stringify(appData));
-  setEBooks([...appData.eBooks]);
-  toast.success('eBook adicionado com sucesso!');
-};
 
-const editarEbook = (id, eBookAtualizado) => {
-  const appData = JSON.parse(localStorage.getItem('appData'));
-  const index = appData.eBooks.findIndex(e => e.id === id);
-  if (index !== -1) {
-    appData.eBooks[index] = { ...appData.eBooks[index], ...eBookAtualizado };
+  const adicionarEbook = (novoEbook) => {
+    const appData = JSON.parse(localStorage.getItem('appData'));
+    novoEbook.id = appData.eBooks.length + 1;
+    appData.eBooks.push(novoEbook);
     localStorage.setItem('appData', JSON.stringify(appData));
     setEBooks([...appData.eBooks]);
-    toast.success('eBook atualizado com sucesso!');
-  }
-};
+    toast.success('eBook adicionado com sucesso!');
+  };
 
-const excluirEbook = (id) => {
-  const appData = JSON.parse(localStorage.getItem('appData'));
-  appData.eBooks = appData.eBooks.filter(e => e.id !== id);
-  localStorage.setItem('appData', JSON.stringify(appData));
-  setEBooks([...appData.eBooks]);
-  toast.info('eBook excluído com sucesso!');
-};
+  const editarEbook = (id, eBookAtualizado) => {
+    const appData = JSON.parse(localStorage.getItem('appData'));
+    const index = appData.eBooks.findIndex(e => e.id === id);
+    if (index !== -1) {
+      appData.eBooks[index] = { ...appData.eBooks[index], ...eBookAtualizado };
+      localStorage.setItem('appData', JSON.stringify(appData));
+      setEBooks([...appData.eBooks]);
+      alert('eBook atualizado com sucesso!');
+    }
+  };
 
+  const excluirEbook = (id) => {
+    const appData = JSON.parse(localStorage.getItem('appData'));
+    appData.eBooks = appData.eBooks.filter(e => e.id !== id);
+    localStorage.setItem('appData', JSON.stringify(appData));
+    setEBooks([...appData.eBooks]);
+    toast.info('eBook excluído com sucesso!');
+  };
 
   const comprarProdutos = () => {
     const appData = JSON.parse(localStorage.getItem('appData'));
@@ -148,7 +153,6 @@ const excluirEbook = (id) => {
       return;
     }
 
-    // Atualiza os produtos adquiridos pelo usuário
     appData.carrinho.forEach(produtoId => {
       const produto = appData.produtos.find(p => p.id === produtoId);
       if (produto && !produto.adquiridos.includes(currentUser)) {
@@ -156,7 +160,6 @@ const excluirEbook = (id) => {
       }
     });
 
-    // Limpa o carrinho após a compra
     appData.carrinho = [];
     localStorage.setItem('appData', JSON.stringify(appData));
     setCarrinho([]);
@@ -164,7 +167,6 @@ const excluirEbook = (id) => {
     toast.success('Compra realizada com sucesso!');
   };
 
-  // Restante do código permanece o mesmo
   const toggleTheme = () => {
     setDarkMode(!darkMode);
     if (!darkMode) {
@@ -182,7 +184,6 @@ const excluirEbook = (id) => {
     setIsLoggedIn(true);
     setUserType(type);
     setCurrentPage(type === 'cliente' ? 'dashboard-cliente' : 'dashboard-criador');
-    // Salva o estado de login no localStorage
     localStorage.setItem('isLoggedIn', 'true');
     localStorage.setItem('userType', type);
     toast.success(`Bem-vindo, ${type === 'cliente' ? 'Cliente' : 'Criador'}!`);
@@ -192,10 +193,14 @@ const excluirEbook = (id) => {
     setIsLoggedIn(false);
     setUserType(null);
     setCurrentPage('home');
-    // Limpa o estado de login do localStorage
     localStorage.removeItem('isLoggedIn');
     localStorage.removeItem('userType');
     toast.info("Você saiu da conta");
+  };
+
+  const visualizarEbook = (ebook) => {
+    setSelectedEbook(ebook);
+    setCurrentPage('reader');
   };
 
   const renderPage = () => {
@@ -209,7 +214,9 @@ const excluirEbook = (id) => {
       case 'dashboard-cliente':
         return <DashboardCliente produtos={produtos} addToCarrinho={addToCarrinho} comprarProdutos={comprarProdutos} carrinho={carrinho} />;
       case 'dashboard-criador':
-        return <DashboardCriador salvarEbook={salvarEbook} eBooks={eBooks}/>;
+        return <DashboardCriador salvarEbook={salvarEbook} eBooks={eBooks} editarEbook={editarEbook} excluirEbook={excluirEbook} visualizarEbook={visualizarEbook} />;
+      case 'reader':
+        return <Reader ebookData={selectedEbook} />;
       default:
         return <Home />;
     }
@@ -217,7 +224,7 @@ const excluirEbook = (id) => {
 
   return (
     <div className="App">
-      <Menu 
+      <Menu
         isLoggedIn={isLoggedIn}
         userType={userType}
         handleLogout={handleLogout}

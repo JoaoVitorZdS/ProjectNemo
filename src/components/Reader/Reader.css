@@ -1,0 +1,184 @@
+/* src/components/Reader/Reader.css */
+
+/* Importar a Fonte Poppins */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap');
+
+/* Cores de Contraste Máximo */
+:root {
+    --primary-color: #003366;
+    /* Azul escuro */
+    --secondary-color: #00A1E0;
+    /* Azul claro */
+    --background-color: #FFFFFF;
+    /* Branco */
+    --text-color: #000000;
+    /* Preto para contraste máximo */
+    --accent-color: #F5F5F5;
+    /* Cinza claro */
+}
+
+
+/* Configuração de Página */
+.reader {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: var(--background-color);
+}
+
+/* Estilo das Seções */
+.reader section {
+    background-color: var(--background-color);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    padding: 2rem;
+    padding-bottom: 5rem;
+    width: 90%;
+    max-width: 190mm;
+    height: 90%;
+    max-height: 100vh;
+    overflow: auto;
+    border-radius: 5px;
+    display: none;
+    position: absolute;
+    box-shadow: 0px 0px 16px 10px rgba(0, 0, 0, 0.2);
+}
+
+.reader h3,
+.reader h2 {
+    color: var(--primary-color);
+}
+
+/* Página Visível */
+.reader section.active {
+    display: block;
+}
+
+/* Modo de Duas Páginas no Desktop */
+@media (min-width: 1024px) {
+    .reader {
+        flex-direction: row;
+        gap: 2rem;
+    }
+
+    .reader .dual-view .active {
+        display: flex;
+    }
+}
+
+/* Estilo da Capa */
+.cover {
+    background-color: var(--primary-color);
+    color: var(--background-color);
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.author {
+    font-size: small;
+    position: absolute;
+    bottom: 0;
+}
+
+/* Controles de Paginação */
+.pagination-controls {
+    position: fixed;
+    bottom: 10px;
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+    max-width: 198mm;
+    width: 100%;
+    color: var(--background-color);
+    padding: 0.5rem 1rem;
+    border-radius: 5px;
+    justify-content: space-between;
+    flex-wrap: nowrap;
+    flex-direction: row;
+}
+
+.pagination-controls button {
+    font-size: 25px;
+    background-color: var(--primary-color);
+    color: var(--background-color);
+    border: none;
+    padding: 0.8rem 1rem;
+    cursor: pointer;
+    border-radius: 50%;
+    box-shadow: 9px 9px 6px rgba(0, 0, 0, 0.2),
+        0px 0px 6px rgba(255, 255, 255, 0.5);
+}
+
+.pagination-controls button:hover {
+    box-shadow: inset 9px 9px 16px rgba(0, 0, 0, 0.2),
+        inset -9px -9px 16px rgba(255, 255, 255, 0.5);
+}
+
+#page-info {
+    color: var(--primary-color);
+}
+
+/* Botão Flutuante */
+.floating-buttons {
+    position: fixed;
+    top: 10px;
+    right: 10px;
+    z-index: 1000;
+}
+
+.floating-buttons button {
+    background: var(--background-color);
+    border: none;
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    box-shadow: 9px 9px 16px rgba(0, 0, 0, 0.2),
+        -9px -9px 16px rgba(255, 255, 255, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    font-size: 24px;
+    outline: none;
+    transition: all 0.3s ease;
+}
+
+.floating-buttons button:hover {
+    box-shadow: inset 9px 9px 16px rgba(0, 0, 0, 0.2),
+        inset -9px -9px 16px rgba(255, 255, 255, 0.5);
+}
+
+/* Modo Noturno */
+body.dark-mode {
+    background-color: #2e2e2e;
+    color: #ffffff;
+}
+
+body.dark-mode .floating-buttons button {
+    background: #333;
+}
+
+/* Responsividade para Celulares */
+@media (max-width: 600px) {
+    .reader section {
+        width: 90%;
+        height: 90%;
+    }
+}
+
+/* Centralização de Imagens */
+figure {
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+figure figcaption {
+    padding-bottom: 30px;
+    font-style: italic;
+}

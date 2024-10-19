@@ -1,0 +1,112 @@
+/* src/components/EbookViewer/EbookViewer.css */
+
+/* Importar a Fonte Poppins */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap');
+
+/* Cores de Contraste Máximo */
+:root {
+    --primary-color: #003366;
+    --secondary-color: #00A1E0;
+    --background-color: #FFFFFF;
+    --text-color: #000000;
+    --accent-color: #F5F5F5;
+}
+
+/* Estilos Básicos */
+
+
+/* Estilo das Seções */
+
+
+.ebook-viewer h3{
+        color: var(--primary-color);
+    }
+.ebook-viewer h2 {
+    color: var(--primary-color);
+}
+
+/* Página Visível */
+main section.active {
+    display: flex;
+    flex-direction: column;
+}
+
+/* Página de Capa */
+.cover {
+    background-color: var(--primary-color);
+    color: var(--background-color);
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.author {
+    font-size: small;
+    position: absolute;
+    bottom: 0;
+}
+
+/* Controles de Paginação */
+.pagination-controls {
+    position: fixed;
+    bottom: 0;
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+    max-width: 198mm;
+    width: 100%;
+    color: var(--background-color);
+    padding: 0.5rem 1rem;
+    border-radius: 5px;
+    justify-content: space-between;
+    align-content: center;
+    flex-direction: row;
+}
+
+.pagination-controls button {
+    font-size: 25px;
+    background-color: var(--primary-color);
+    color: var(--background-color);
+    border: none;
+    padding: 0.8rem 1rem;
+    cursor: pointer;
+    border-radius: 50%;
+    box-shadow: 9px 9px 6px rgba(0, 0, 0, 0.2), 0px 0px 6px rgba(255, 255, 255, 0.5);
+}
+
+/* Estilo Neuromórfico para o Botão Flutuante */
+.floating-buttons {
+    position: fixed;
+    top: 10px;
+    right: 10px;
+    z-index: 1000;
+}
+
+#toggle-dark-mode {
+    background: var(--background-color);
+    border: none;
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    box-shadow: 9px 9px 16px rgba(0, 0, 0, 0.2), -9px -9px 16px rgba(255, 255, 255, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    font-size: 24px;
+    transition: all 0.3s ease;
+}
+
+/* Modo Noturno */
+.ebook-viewer.dark-mode {
+    background-color: #2e2e2e;
+    color: #000;
+}
+
+/* Centralização Imagens de Capítulos */
+.ebook-viewer figure {
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+}
