@@ -1,0 +1,56 @@
+/* src/components/DashboardCliente/DashboardCliente.css */
+
+.dashboard-cliente {
+    padding: 20px;
+    margin-left: 270px;
+    /* Espaço para o menu fixo */
+    transition: margin 0.3s;
+}
+
+.product-carousel,
+.cart-section {
+    margin-bottom: 30px;
+}
+
+.product-carousel h3,
+.cart-section h3 {
+    margin-bottom: 15px;
+}
+
+.carousel-items,
+.cart-items {
+    display: flex;
+    gap: 20px;
+    overflow-x: auto;
+}
+
+.product-item,
+.cart-item {
+    background: #f0f0f3;
+    border-radius: 15px;
+    padding: 10px;
+    text-align: center;
+    box-shadow: 8px 8px 16px #bebebe, -8px -8px 16px #ffffff;
+}
+
+.product-item img {
+    border-radius: 10px;
+    width: 100%;
+    height: auto;
+}
+
+.product-item p,
+.cart-item p {
+    margin-top: 10px;
+}
+
+.cart-section .button {
+    margin-top: 20px;
+}
+
+/* Modo escuro */
+body.dark-mode .product-item,
+body.dark-mode .cart-item {
+    background: #1e1e1e;
+    box-shadow: 8px 8px 16px #111, -8px -8px 16px #2f2f2f;
+}

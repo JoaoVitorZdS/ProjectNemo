@@ -1,0 +1,44 @@
+/* src/components/Login/Login.css */
+
+.login {
+    padding: 20px;
+    max-width: 400px;
+    margin: 50px auto;
+    background: #f0f0f3;
+    border-radius: 15px;
+    box-shadow: 8px 8px 16px #bebebe, -8px -8px 16px #ffffff;
+}
+
+.login h2 {
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.login form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.login input {
+    padding: 10px;
+    border: none;
+    border-radius: 10px;
+    box-shadow: inset 4px 4px 8px #bebebe, inset -4px -4px 8px #ffffff;
+}
+
+.login .button {
+    margin-top: 20px;
+    padding: 10px;
+    cursor: pointer;
+}
+
+/* Modo escuro */
+body.dark-mode .login {
+    background: #1e1e1e;
+    box-shadow: 8px 8px 16px #111, -8px -8px 16px #2f2f2f;
+}
+
+body.dark-mode .login input {
+    box-shadow: inset 4px 4px 8px #111, inset -4px -4px 8px #2f2f2f;
+}
