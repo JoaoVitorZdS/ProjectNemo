@@ -1,5 +1,11 @@
 /* src/components/Home/Home.css */
+@media (max-width: 768px) {
+    .home {
+        padding: 30px !important;
+        padding-top: 120px !important;
+        margin-left: 0px !important;
 
+    }}
 .home {
     padding: 20px;
     margin-left: 270px;

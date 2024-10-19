@@ -63,6 +63,8 @@
         position: fixed !important;
         bottom: 0 !important;
         justify-content: center !important;
+        align-items: center !important;
+        padding: 0px !important;
     }
 
         .menu nav{
@@ -75,7 +77,9 @@
         justify-content: space-around;
         width: 100%;
     }
-
+.menu nav ul li {
+    margin-bottom: 0px !important;
+}
     
         .bottom-section button {
             background: #f0f0f3;
@@ -83,6 +87,8 @@
                 border: none;
                 border-radius: 10px;
                 padding: 10px !important;
+                margin: 0px !important;
+                margin-right: 5px !important;
                 
         }
         .bottom-section {
