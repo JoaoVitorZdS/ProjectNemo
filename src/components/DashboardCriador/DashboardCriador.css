@@ -1,8 +1,21 @@
 /* src/components/DashboardCriador/DashboardCriador.css */
+@media (max-width: 768px) {
+    .dashboard-criador {
+            padding: 30px !important;
+            padding-top: 120px !important;
+            margin-left: 0px !important;
+            
+        }
 
+        .ebooks-criados{
+            width: 100% !important;
+        }
+}
 .dashboard-criador {
     padding: 20px;
     margin-left: 270px;
+    display: flex;
+    flex-direction: column;
 }
 
 .create-ebook-button {
