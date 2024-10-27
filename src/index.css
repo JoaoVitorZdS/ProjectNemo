@@ -50,13 +50,13 @@ body.dark-mode .neumorphic {
 body.dark-mode .button {
   background: #1e1e1e;
   color: #f0f0f3;
-  box-shadow: 8px 8px 16px #111, -8px -8px 16px #2f2f2f;
+  box-shadow: 8px 8px 16px #111;
 }
 
 /* Estilo para o Modo Claro e Escuro */
 .theme-toggle {
-  position: absolute;
+  position: fixed;
   bottom: 20px;
-  right: 20px;
+  right: 20px; z-index: 999;
   cursor: pointer;
 }

@@ -8,6 +8,7 @@
     }}
 .home {
     padding: 20px;
+    
     margin-left: 270px;
     /* Espaço para o menu fixo */
     transition: margin 0.3s;
@@ -49,7 +50,3 @@
 }
 
 /* Modo escuro */
-body.dark-mode .product-item {
-    background: #1e1e1e;
-    box-shadow: 2px 2px 5px 1px #111, -8px -8px 16px #2f2f2f;
-}
